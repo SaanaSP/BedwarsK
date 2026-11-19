@@ -1,0 +1,26 @@
+name: Bedwars
+main: basicstuff.Main
+author: Saana
+api-version: 1.13
+version: 1.0
+commands:
+  start:
+    usage: /<command>
+    aliases: [ᚪᚾᚷᛁᚾᚪᚾ]
+  teams:
+    usage: /<command>
+  nick:
+    usage: /<command> <nickname>
+  end:
+    usage: /<command>
+  world:
+    usage: /<command> <world>
+  heal:
+    usage: /<command> <target>
+  feed:
+    usage: /<command> <target>
+  debug:
+    usage: /<command>
+    aliases: [dg, df, as, sd]
+  cheats:
+    usage: /<cheats> <target>

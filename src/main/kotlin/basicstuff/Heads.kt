@@ -1,0 +1,5 @@
+package basicstuff
+
+object Heads {
+    const val punching_gloves = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTY1YzFkY2IzOWFlYjZmMmE5ODJmODFhNjUxZjdmZjhkZmU3NzA5NzM1NDAxNmU3MTRlNjY0MTFjNjI4YzkwYSJ9fX0="
+}

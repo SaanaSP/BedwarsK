@@ -1,0 +1,21 @@
+package utils
+
+import java.net.URI
+import com.google.gson.JsonParser
+
+fun getSkinData(uuid: String): Pair<String, String>? {
+    val url = URI("https://sessionserver.mojang.com/session/minecraft/profile/$uuid?unsigned=false").toURL()
+    val connection = url.openConnection()
+    connection.connect()
+
+    val response = connection.getInputStream().bufferedReader().readText()
+    val json = JsonParser.parseString(response).asJsonObject
+
+    val properties = json.getAsJsonArray("properties")
+    val textures = properties.first { it.asJsonObject.get("name").asString == "textures" }.asJsonObject
+
+    val value = textures.get("value").asString
+    val signature = textures.get("signature").asString
+
+    return Pair(value, signature)
+}

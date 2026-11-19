@@ -1,0 +1,12 @@
+package utils
+
+import com.mojang.authlib.GameProfile
+import com.mojang.authlib.properties.Property
+import org.bukkit.Location
+import org.bukkit.entity.EntityType
+import java.util.*
+
+fun makeNPC(position: Location, texture: String, signature: String) {
+    val mannequin = position.world?.spawnEntity(position, EntityType.MANNEQUIN)
+    TODO("Make later maybe")
+}
