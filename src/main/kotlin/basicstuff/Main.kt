@@ -45,6 +45,7 @@ class Main : JavaPlugin() {
         this.getCommand("start")!!.setExecutor(commands.CmdStart)
         this.getCommand("teams")!!.setExecutor(Teams())
         this.getCommand("cheats")!!.setExecutor(commands.Cheats)
+        this.getCommand("item")!!.setExecutor(commands.Item)
     }
 
     override fun onDisable() {

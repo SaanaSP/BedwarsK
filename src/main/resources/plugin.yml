@@ -6,7 +6,6 @@ version: 1.0
 commands:
   start:
     usage: /<command>
-    aliases: [ᚪᚾᚷᛁᚾᚪᚾ]
   teams:
     usage: /<command>
   nick:
@@ -15,12 +14,10 @@ commands:
     usage: /<command>
   world:
     usage: /<command> <world>
-  heal:
-    usage: /<command> <target>
-  feed:
-    usage: /<command> <target>
   debug:
     usage: /<command>
     aliases: [dg, df, as, sd]
   cheats:
-    usage: /<cheats> <target>
+    usage: /<command> <target>
+  item:
+    usage: /<command> <id>

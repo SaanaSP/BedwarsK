@@ -251,7 +251,7 @@ val shopItems = listOf(
         Currency.GOLD,
         true
     )
-    { player -> player.inventory.addItem(Items.platform.item) },
+    { player -> player.inventory.addItem(Items["platform"]!!.item) },
 
     ShopItem(
         "shop_boost",
@@ -261,7 +261,7 @@ val shopItems = listOf(
         Currency.GOLD,
         true
     )
-    { player -> player.inventory.addItem(Items.boost.item) },
+    { player -> player.inventory.addItem(Items["boost"]!!.item) },
 
     ShopItem(
         "shop_heal_apple",
@@ -313,18 +313,8 @@ val shopItems = listOf(
         Currency.STARS,
         true
     )
-    { player -> player.inventory.addItem(Items.invis_cloak.item) },
+    { player -> player.inventory.addItem(Items["invis_cloak"]!!.item) },
 
-    ShopItem(
-        "shop_traps",
-        arbItem(Material.IRON_TRAPDOOR, 1, "§rTraps", listOf("§r§8Click to view more")),
-        ShopPage.UTILITY,
-        0,
-        Currency.FREE,
-        true
-    ) { player ->
-        player.openInventory(trapsMenu)
-    },
     ShopItem(
         "shop_strike",
         arbItem(Material.GUARDIAN_SPAWN_EGG, 1, "§rRemote Strike", listOf("§r§8Lets you select a", "§r§8location for an airstrike")),
@@ -339,51 +329,46 @@ val shopItems = listOf(
         })
     },
 
+    ShopItem(
+        "shop_traps",
+        arbItem(Material.IRON_TRAPDOOR, 1, "§rTraps", listOf("§r§8Click to view more")),
+        ShopPage.UTILITY,
+        0,
+        Currency.FREE,
+        true
+    ) { player -> player.openInventory(trapsMenu) },
+
+
     //traps
     ShopItem(
-        "trap_slowness",
+        "shop_trap_slowness",
         arbItem(Material.SUSPICIOUS_SAND, 1, "§rWeak Trap", listOf("§r§8Creates a trap that", "§r§8slows temporarily")),
         ShopPage.TRAPS,
         200,
         Currency.GOLD,
         true
-    ) { player ->
-        player.inventory.addItem(ItemStack(Material.SUSPICIOUS_SAND, 1).editMeta {
-            setDisplayName("§rWeak Trap")
-            persistentDataContainer.set(Keys.itemsKey, PersistentDataType.STRING, "trap_slowness")
-            setMaxStackSize(1)
-        })
-    },
+    ) { player -> player.inventory.addItem(Items["trap_slowness"]!!.item) },
+
     ShopItem(
-        "trap_launch",
+        "shop_trap_launch",
         arbItem(Material.PISTON, 1, "§rLaunch Trap", listOf("§r§8Creates a trap that", "§r§8launches a player back")),
         ShopPage.TRAPS,
         750,
         Currency.GOLD,
         true
-    ) { player ->
-        player.inventory.addItem(ItemStack(Material.PISTON, 1).editMeta {
-            setDisplayName("§rLaunch Trap")
-            persistentDataContainer.set(Keys.itemsKey, PersistentDataType.STRING, "trap_launch")
-            setMaxStackSize(1)
-        })
-    },
+    ) { player -> player.inventory.addItem(Items["trap_launch"]!!.item) },
+
     ShopItem(
-        "trap_snare",
+        "shop_trap_snare",
         arbItem(Material.TARGET, 1, "§rSnare Trap", listOf("§r§8Creates a trap that", "§r§8holds a player in place")),
         ShopPage.TRAPS,
-        1000,
-        Currency.GOLD,
+        1,
+        Currency.STARS,
         true
-    ) { player ->
-        player.inventory.addItem(ItemStack(Material.TARGET, 1).editMeta {
-            setDisplayName("§rSnare Trap")
-            persistentDataContainer.set(Keys.itemsKey, PersistentDataType.STRING, "trap_snare")
-            setMaxStackSize(1)
-        })
-    },
+    ) { player -> player.inventory.addItem(Items["trap_snare"]!!.item) },
+
     ShopItem(
-        "trap_reveal",
+        "shop_trap_reveal",
         arbItem(
             Material.SHROOMLIGHT,
             1,
@@ -394,15 +379,10 @@ val shopItems = listOf(
         2,
         Currency.STARS,
         true
-    ) { player ->
-        player.inventory.addItem(ItemStack(Material.SHROOMLIGHT, 1).editMeta {
-            setDisplayName("§rGlow Trap")
-            persistentDataContainer.set(Keys.itemsKey, PersistentDataType.STRING, "trap_reveal")
-            setMaxStackSize(1)
-        })
-    },
+    ) { player -> player.inventory.addItem(Items["trap_reveal"]!!.item) },
+
     ShopItem(
-        "trap_clear",
+        "shop_trap_clear",
         arbItem(
             Material.BARRIER,
             1,

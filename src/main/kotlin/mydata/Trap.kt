@@ -9,6 +9,7 @@ import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.attribute.Attribute
 import org.bukkit.entity.BlockDisplay
+import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
@@ -22,12 +23,12 @@ import utils.teamNum
 class Trap(
     val team: Team,
     val location: Location,
-    val type: String,
-    val visual: BlockDisplay
+    val type: TrapType,
+    val visual: List<Any>
 ) {
     fun trigger(player: Player) {
         when (type) {
-            "trap_slowness" -> {
+            TrapType.WEAK -> {
                 player.apply {
                     addPotionEffect(PotionEffect(PotionEffectType.SLOWNESS, 60, 5))
                     getAttribute(Attribute.JUMP_STRENGTH)!!.apply {
@@ -41,7 +42,7 @@ class Trap(
                         ?.removeModifier(nullAttribute)
                 }
             }
-            "trap_launch" -> {
+            TrapType.LAUNCH -> {
                 val delta = player.location.toVector() - when (player.teamNum) {
                     1 -> Vector(-69.5, 40.0, 70.5)
                     2 -> Vector(70.5, 40.0, -69.5)
@@ -50,7 +51,7 @@ class Trap(
                 player.velocity = delta.apply{y=0.0}.normalize().multiply(2).apply{y=1.5}
                 player.playSound(Sound.BLOCK_PISTON_EXTEND, 1.0f, 1.25f)
             }
-            "trap_snare" -> {
+            TrapType.SNARE -> {
                 player.apply {
                     addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, -1, 0))
                     getAttribute(Attribute.JUMP_STRENGTH)!!.apply {
@@ -66,7 +67,7 @@ class Trap(
                 }
                 GameState.playerStatMap[player.uniqueId]!!.snareLevel = 15
             }
-            "trap_reveal" -> {
+            TrapType.GLOW -> {
                 player.removePotionEffect(PotionEffectType.INVISIBILITY)
                 player.addPotionEffect(PotionEffect(PotionEffectType.GLOWING, 400, 0))
                 val ids = team.members
@@ -83,7 +84,7 @@ class Trap(
     fun disarm() {
         val key = GameState.traps.entries.firstOrNull {it.value == this}?.key ?: return plugin.logger.info("${TermColour.RED}Stray trap")
         GameState.traps.remove(key)
-        visual.remove()
+        visual.forEach{ (it as? Entity)?.remove() }
         team.trapCount--
     }
 }

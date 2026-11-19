@@ -8,7 +8,7 @@ import utils.editMeta
 
 abstract class CustomItem(
     val name: String,
-    val item: ItemStack,
+    item: ItemStack,
 ) {
     init {
         item.editMeta {
@@ -16,5 +16,6 @@ abstract class CustomItem(
         }
     }
 
-    abstract fun func(player: Player): Unit
+    val item: ItemStack = item
+    get() = field.clone()
 }

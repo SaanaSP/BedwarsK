@@ -2,6 +2,7 @@ package mydata.customitems
 
 import basicstuff.Keys
 import game.GameState
+import mydata.Consumable
 import mydata.CustomItem
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -13,7 +14,7 @@ import org.bukkit.potion.PotionEffectType
 import utils.decrementItem
 import utils.editMeta
 
-object InvisibilityCloak : CustomItem(
+object InvisibilityCloak : Consumable, CustomItem(
     "invis_cloak",
     ItemStack(Material.CHAINMAIL_CHESTPLATE, 1).editMeta {
         setDisplayName("§rInvisibility Cloak")

@@ -2,6 +2,7 @@ package mydata.customitems
 
 import basicstuff.Keys
 import game.GameState
+import mydata.Consumable
 import mydata.CustomItem
 import org.bukkit.Material
 import org.bukkit.Sound
@@ -11,7 +12,7 @@ import org.bukkit.persistence.PersistentDataType
 import utils.decrementItem
 import utils.editMeta
 
-object RocketBoost : CustomItem(
+object RocketBoost : Consumable, CustomItem(
     "boost",
     ItemStack(Material.FIREWORK_ROCKET, 1).editMeta {
         setDisplayName("§rRocket Boost")

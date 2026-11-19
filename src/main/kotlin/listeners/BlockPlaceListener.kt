@@ -5,11 +5,14 @@ import basicstuff.plugin
 import mydata.world
 import game.GamePhase
 import game.GameState
+import mydata.Items
+import mydata.Placeable
 import mydata.Trap
 import mydata.quadMap
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Material
+import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 import org.bukkit.block.data.Directional
 import org.bukkit.entity.BlockDisplay
@@ -23,18 +26,19 @@ import org.joml.Quaternionf
 import utils.team
 import org.joml.Vector3f;
 import utils.bad
+import utils.isActive
 import utils.isFullCube
 import utils.teamNum
 import utils.trifecta
 
 object BlockPlaceListener : Listener {
 
-    @EventHandler
+    /*@EventHandler
     fun trapListener(event: BlockPlaceEvent) {
         val player = event.player
         if (player.trifecta) return
 
-        val id = event.itemInHand.itemMeta?.persistentDataContainer!!.get(itemsKey, PersistentDataType.STRING) ?: return
+        val id = event.itemInHand.itemMeta?.persistentDataContainer?.get(itemsKey, PersistentDataType.STRING) ?: return
         if (!id.contains("trap")) return
 
         event.isCancelled = true
@@ -80,6 +84,18 @@ object BlockPlaceListener : Listener {
 
         val targetTeam = GameState.teams.values.first {it != player.team}
         targetTeam.members.forEach { Bukkit.getPlayer(it)?.hideEntity(plugin, visual) }
+    }*/
+
+    @EventHandler
+    fun placeable(event: BlockPlaceEvent) {
+        val player = event.player
+        if (!player.isActive) return
+
+        val tag = event.itemInHand.itemMeta?.persistentDataContainer?.get(itemsKey, PersistentDataType.STRING) ?: return
+        val item = Items[tag] as? Placeable ?: return
+
+        if (item.cancels) event.isCancelled = true
+        item.func(event)
     }
 
     @EventHandler

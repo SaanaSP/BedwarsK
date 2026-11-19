@@ -1,6 +1,9 @@
 package listeners
 
 import basicstuff.Keys
+import basicstuff.plugin
+import mydata.Consumable
+import mydata.Items
 import mydata.tntMap
 import mydata.items
 import org.bukkit.Location
@@ -12,6 +15,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.persistence.PersistentDataType
+import utils.TermColour
 import utils.isActive
 import utils.plus
 
@@ -22,10 +26,12 @@ object ClickListener : Listener {
         val player = event.player
         if (!player.isActive) return
 
-        event.isCancelled = true
-
         val tag = player.inventory.itemInMainHand.itemMeta?.persistentDataContainer?.get(Keys.itemsKey, PersistentDataType.STRING) ?: return
-        items[tag]?.invoke(player)
+        val item = Items[tag] ?: return plugin.logger.info("${TermColour.RED}Invalid tag")
+
+
+        (item as? Consumable)?.func(player) ?: return
+        event.isCancelled = true
     }
 
     @EventHandler

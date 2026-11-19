@@ -4,6 +4,7 @@ import basicstuff.Keys
 import game.GameState
 import org.bukkit.Material
 import org.bukkit.Sound
+import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
@@ -36,9 +37,17 @@ val items = mapOf(
 
 object Items {
 
-    val platform = mydata.customitems.Platform
+    val idMap = setOf(
+        mydata.customitems.Platform,
+        mydata.customitems.RocketBoost,
+        mydata.customitems.InvisibilityCloak,
 
-    val boost = mydata.customitems.RocketBoost
+        mydata.customitems.WeakTrap,
+        mydata.customitems.LaunchTrap,
+        mydata.customitems.SnareTrap,
+        mydata.customitems.GlowTrap
 
-    val invis_cloak = mydata.customitems.InvisibilityCloak
+    ).associateBy {it.name}
+
+    operator fun get(id: String): CustomItem? = idMap[id]
 }
